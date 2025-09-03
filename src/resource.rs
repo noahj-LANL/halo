@@ -1,15 +1,20 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use futures::future;
-use std::collections::{HashMap, VecDeque};
-use std::error::Error;
-use std::sync::{Arc, Mutex};
+use std::{
+    collections::{HashMap, VecDeque},
+    error::Error,
+    sync::{Arc, Mutex},
+};
 
-use crate::halo_capnp::{do_ocf_request, ocf_resource_agent};
-use crate::host::*;
-use crate::manager::MgrContext;
-use crate::remote::ocf;
+use futures::future;
+
+use crate::{
+    halo_capnp::{do_ocf_request, ocf_resource_agent},
+    host::*,
+    manager::MgrContext,
+    remote::ocf,
+};
 
 /// Resource Group contains a zpool resource together with all of the Lustre resources that depend
 /// on it.

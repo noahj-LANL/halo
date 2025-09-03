@@ -5,10 +5,12 @@ use std::sync::Arc;
 
 use clap::Args;
 
-use crate::commands::{self, Cli};
-use crate::host::*;
-use crate::manager::MgrContext;
-use crate::Cluster;
+use crate::{
+    commands::{self, Cli},
+    host::*,
+    manager::MgrContext,
+    Cluster,
+};
 
 #[derive(Args, Debug, Clone)]
 pub struct PowerArgs {

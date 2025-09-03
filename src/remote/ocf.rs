@@ -6,8 +6,7 @@
 //! This module implements OCF resource agent operations on nodes which
 //! runs a resource.
 
-use std::io;
-use std::process::Command;
+use std::{io, process::Command};
 
 /// OCF Resource Agent operations that can be performed on a resource.
 #[derive(Debug)]

@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use std::collections::HashMap;
-use std::error::Error;
-use std::fmt;
-use std::io::{Read, Write};
-use std::process::{Command, Stdio};
-use std::sync::Mutex;
+use std::{
+    collections::HashMap,
+    error::Error,
+    fmt,
+    io::{Read, Write},
+    process::{Command, Stdio},
+    sync::Mutex,
+};
 
 use clap::ValueEnum;
 

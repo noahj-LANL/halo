@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use capnp::capability::Promise;
-use capnp_rpc::{rpc_twoparty_capnp, twoparty, RpcSystem};
-use futures::AsyncReadExt;
-use std::io;
-use std::sync::Arc;
+use std::{io, sync::Arc};
 
-use crate::cluster;
-use crate::halo_capnp::halo_mgmt;
-use crate::LogStream;
+use {
+    capnp::capability::Promise,
+    capnp_rpc::{rpc_twoparty_capnp, twoparty, RpcSystem},
+    futures::AsyncReadExt,
+};
+
+use crate::{cluster, halo_capnp::halo_mgmt, LogStream};
 
 /// An object that can be passed to manager functions holding some state that should be shared
 /// between these functions.

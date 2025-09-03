@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use halo_lib::commands::{self, Cli};
-use halo_lib::{self, cluster, manager};
-
 use clap::Parser;
+
+use halo_lib::{
+    self, cluster,
+    commands::{self, Cli},
+    manager,
+};
 
 /// The halo client is used both to launch the monitoring and management daemon,
 /// as well as for interactive command line use.

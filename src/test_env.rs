@@ -1,15 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use std::fs;
-use std::io;
-use std::io::Write;
-use std::net;
-use std::sync::Arc;
+use std::{fs, io, io::Write, net, sync::Arc};
 
-use crate::cluster::Cluster;
-use crate::manager::MgrContext;
-use crate::resource::Resource;
+use crate::{cluster::Cluster, manager::MgrContext, resource::Resource};
 
 /// Given a relative `path` in the test directory, prepend the
 /// full path to the test directory.

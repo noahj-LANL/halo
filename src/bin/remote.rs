@@ -2,6 +2,7 @@
 // Copyright 2025. Triad National Security, LLC.
 
 use clap::Parser;
+
 use halo_lib::remote::{self, Cli};
 
 fn main() {

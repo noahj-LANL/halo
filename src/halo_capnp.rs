@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use futures::AsyncReadExt;
-use rustls::pki_types::ServerName;
-use std::env;
-use std::error::Error;
-use std::fmt;
+use std::{env, error::Error, fmt};
 
-use crate::resource::{self, Location, Resource};
-use crate::tls::get_connector;
+use {futures::AsyncReadExt, rustls::pki_types::ServerName};
+
+use crate::{
+    resource::{self, Location, Resource},
+    tls::get_connector,
+};
+
 use capnp_rpc::{rpc_twoparty_capnp, twoparty, RpcSystem};
 
 include!(concat!(env!("OUT_DIR"), "/halo_capnp.rs"));

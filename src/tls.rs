@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use rustls::pki_types::{CertificateDer, PrivateKeyDer};
-use rustls::{server::WebPkiClientVerifier, ClientConfig, RootCertStore, ServerConfig};
-use rustls_pemfile::{certs, private_key};
-use std::fs::File;
-use std::io::BufReader;
-use std::path::PathBuf;
-use std::sync::Arc;
-use tokio_rustls::{TlsAcceptor, TlsConnector};
+use std::{fs::File, io::BufReader, path::PathBuf, sync::Arc};
+
+use {
+    rustls::pki_types::{CertificateDer, PrivateKeyDer},
+    rustls::{server::WebPkiClientVerifier, ClientConfig, RootCertStore, ServerConfig},
+    rustls_pemfile::{certs, private_key},
+    tokio_rustls::{TlsAcceptor, TlsConnector},
+};
 
 fn load_private_key(path: PathBuf) -> Result<PrivateKeyDer<'static>, Box<dyn std::error::Error>> {
     let key_file = File::open(path)?;

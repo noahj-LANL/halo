@@ -3,8 +3,7 @@
 
 use futures::future;
 
-use crate::cluster;
-use crate::commands;
+use crate::{cluster, commands};
 
 pub async fn stop(cluster: cluster::Cluster) -> commands::Result {
     // 1. All Lustre targets but MGS.

@@ -12,8 +12,9 @@ pub mod resource;
 pub mod test_env;
 pub mod tls;
 
-use crate::cluster::Cluster;
 use std::sync::Mutex;
+
+use crate::cluster::Cluster;
 
 /// Buffer is an object that can be shared between writers to be written to and readers
 /// to be read from.

@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use futures::future;
-use std::collections::HashMap;
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
-use crate::host::*;
-use crate::manager::MgrContext;
-use crate::resource::*;
+use futures::future;
+
+use crate::{host::*, manager::MgrContext, resource::*};
 
 /// Cluster is the model used to represent the dynamic state of a cluster in memory.
 /// Unlike the persistent model which views a cluster as made up of nodes, which own services,

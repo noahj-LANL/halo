@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
-use capnp::capability::Promise;
-use capnp_rpc::{pry, rpc_twoparty_capnp, twoparty, RpcSystem};
-use clap::Parser;
-use futures::AsyncReadExt;
-use nix::ifaddrs;
-use std::error::Error;
-use std::net::Ipv4Addr;
-use std::str::FromStr;
+use std::{error::Error, net::Ipv4Addr, str::FromStr};
 
-use crate::halo_capnp::ocf_resource_agent;
-use crate::tls::get_acceptor;
+use {
+    capnp::capability::Promise,
+    capnp_rpc::{pry, rpc_twoparty_capnp, twoparty, RpcSystem},
+    clap::Parser,
+    futures::AsyncReadExt,
+    nix::ifaddrs,
+};
+
+use crate::{halo_capnp::ocf_resource_agent, tls::get_acceptor};
 
 pub mod ocf;
 

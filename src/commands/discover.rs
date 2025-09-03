@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright 2025. Triad National Security, LLC.
 
+use std::{collections::HashMap, io, process::Command};
+
 use clap::Args;
-use std::collections::HashMap;
-use std::io;
-use std::process::Command;
 
 use crate::config;
 

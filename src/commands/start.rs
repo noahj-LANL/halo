@@ -3,9 +3,7 @@
 
 use futures::future;
 
-use crate::cluster;
-use crate::commands;
-use crate::resource;
+use crate::{cluster, commands, resource};
 
 pub async fn start(cluster: cluster::Cluster) -> commands::Result {
     // 1. All zpools.
