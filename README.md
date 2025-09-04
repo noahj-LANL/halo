@@ -5,6 +5,11 @@ HALO was previously known as GoLustre, and only supported Lustre HA, but now it 
 
 LANL software release number: O4905.
 
+## Documentation
+
+This README has a high-level overview.
+See the `docs/` directory for in-depth documentation, including developer-focused documentation.
+
 ## Quick Start using an example config:
 
 1. Start the remote service, giving it an ID of `test_agent` (the test ID is used to control its resources in the test environment):
