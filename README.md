@@ -15,13 +15,13 @@ See the `docs/` directory for in-depth documentation, including developer-focuse
 1. Start the remote service, giving it an ID of `test_agent` (the test ID is used to control its resources in the test environment):
 
 ```bash
-$ OCF_ROOT=tests/ocf_resources/ ./target/debug/halo_remote --network 127.0.0.0/24 --port 8000  --test-id test_agent
+./target/debug/halo_remote --network 127.0.0.0/24 --port 8000  --test-id test_agent --ocf-root tests/ocf_resources/
 ```
 
 2. Start the manager service, using `--manage-resources` to tell it to actively manage resources:
 
 ```bash
-$ ./target/debug/halo --config tests/simple.toml --socket halo.socket  --manage-resources --verbose
+./target/debug/halo --config tests/simple.toml --socket halo.socket  --manage-resources --verbose
 ```
 
 You should see it output information about updating the state of resources.
@@ -32,7 +32,7 @@ Look in the halo directory for files named `test_agent.*` -- these are created w
 3. Run the `status` command:
 
 ```bash
-$ ./target/debug/halo --socket halo.socket  status
+./target/debug/halo status --socket halo.socket
 ```
 
 This outputs information on the state of the resources at the current moment.
@@ -40,7 +40,7 @@ This outputs information on the state of the resources at the current moment.
 4. Try "stopping" a resource by removing its state file:
 
 ```bash
-$ rm test_agent.lustre._mnt_test_ost
+rm test_agent.lustre._mnt_test_ost
 ```
 
 You should see the manager process output status changes as it notices the resource is stopped, and then starts the resource. Try running the monitor command quickly multiple times as the resource state changes, to see if you can catch it in various states.
