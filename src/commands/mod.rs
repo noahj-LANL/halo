@@ -45,13 +45,13 @@ pub fn err() -> Result {
 #[derive(Parser, Debug, Clone)]
 #[command(version, about, long_about = None)]
 pub struct Cli {
-    #[arg(long)]
+    #[arg(long, global = true)]
     pub config: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, global = true)]
     pub socket: Option<String>,
 
-    #[arg(short, long)]
+    #[arg(short, long, global = true)]
     pub verbose: bool,
 
     #[arg(long)]
