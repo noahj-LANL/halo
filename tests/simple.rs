@@ -86,6 +86,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "slow_tests")]
     fn recover() {
         let mut env = test_env_helper("recover");
 

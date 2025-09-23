@@ -45,6 +45,20 @@ rm test_agent.lustre._mnt_test_ost
 
 You should see the manager process output status changes as it notices the resource is stopped, and then starts the resource. Try running the monitor command quickly multiple times as the resource state changes, to see if you can catch it in various states.
 
+## Testing
+
+Run the test suite with:
+
+```bash
+cargo test
+```
+
+By default, slow tests are skipped. In order to run the full test suite, including slow tests, run:
+
+```bash
+cargo test --features slow_tests
+```
+
 ## Architecture
 
 HALO consists of two services: a management service that runs on the cluster master node, and a remote service that runs on Lustre servers.
