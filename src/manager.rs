@@ -93,19 +93,19 @@ async fn prepare_unix_socket(addr: &String) -> io::Result<tokio::net::UnixListen
         Err(e) if e.kind() == io::ErrorKind::NotFound => {}
         Err(e) => {
             eprintln!("Unexpected error while preparing unix socket '{addr}': {e}");
-            return Err(io::Error::from(e));
+            return Err(e);
         }
     };
-    match std::fs::remove_file(&addr) {
+    match std::fs::remove_file(addr) {
         Ok(_) => {}
         Err(e) if e.kind() == io::ErrorKind::NotFound => {}
         Err(e) => {
             eprintln!("error removing old socket: {e}");
-            return Err(io::Error::from(e));
+            return Err(e);
         }
     };
     // Create new socket
-    match tokio::net::UnixListener::bind(&addr) {
+    match tokio::net::UnixListener::bind(addr) {
         Ok(l) => Ok(l),
         Err(e) => {
             eprintln!("error binding to socket '{addr}': {e}");
@@ -188,7 +188,7 @@ pub fn main(cluster: cluster::Cluster) -> crate::commands::Result {
                 Some(s) => s,
                 None => &crate::default_socket(),
             };
-            let listener = match prepare_unix_socket(&addr).await {
+            let listener = match prepare_unix_socket(addr).await {
                 Ok(l) => l,
                 Err(_) => {
                     std::process::exit(1);

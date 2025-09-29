@@ -75,7 +75,7 @@ impl Cluster {
     }
 
     pub fn hosts(&self) -> impl Iterator<Item = &Arc<Host>> {
-        self.hosts.iter().map(|(_, host)| host)
+        self.hosts.values()
     }
 
     pub fn get_host(&self, name: &str) -> Option<&Arc<Host>> {
@@ -116,13 +116,13 @@ impl Cluster {
         let hosts: HashMap<String, Arc<Host>> = config
             .hosts
             .iter()
-            .map(|host| (host.hostname.clone(), Arc::new(Host::from_config(&host))))
+            .map(|host| (host.hostname.clone(), Arc::new(Host::from_config(host))))
             .collect();
 
         for config_host in config.hosts.iter() {
             let failover_host: Option<Arc<Host>> = match &config.failover_pairs {
                 Some(pairs) => {
-                    let hostname = get_failover_partner(&pairs, &config_host.hostname).unwrap();
+                    let hostname = get_failover_partner(pairs, &config_host.hostname).unwrap();
                     // TODO: rather than unwrap() here, return an error to let the user know the
                     // config was invalid:
                     Some(Arc::clone(hosts.get(hostname).unwrap()))
@@ -142,10 +142,7 @@ impl Cluster {
         // In the Cluster object, hosts should be mapped by their "unique" ID, which is different
         // in the test environment and a "real" environment. The id() method on host gives the
         // right value:
-        let hosts = hosts
-            .into_iter()
-            .map(|(_, host)| (host.id(), host))
-            .collect();
+        let hosts = hosts.into_values().map(|host| (host.id(), host)).collect();
 
         new.hosts = hosts;
 
@@ -272,9 +269,9 @@ impl Cluster {
             }
         }
 
-        println!("");
+        println!();
         println!("=== Hosts ===");
-        for (_, host) in &self.hosts {
+        for host in self.hosts.values() {
             println!("{}", host);
             println!("\tfence agent: {:?}", host.fence_agent());
         }

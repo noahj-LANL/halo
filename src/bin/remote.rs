@@ -8,7 +8,7 @@ use halo_lib::remote::{self, Cli};
 fn main() {
     let args = Cli::parse();
 
-    if let Err(_) = remote::agent_main(args) {
+    if remote::agent_main(args).is_err() {
         std::process::exit(1);
     }
 }

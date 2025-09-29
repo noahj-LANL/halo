@@ -155,7 +155,9 @@ impl ResourceGroup {
     /// Main loop for managing a ResourceGroup with a failover host
     async fn manage_ha(&self, _args: &crate::commands::Cli) -> ! {
         let _loc = self.check_location().await;
-        loop {}
+        loop {
+            todo!()
+        }
     }
 
     /// Check if the ResourceGroup's root resource is running on either of its hosts.
@@ -175,9 +177,7 @@ impl<'a> Iterator for ResourceIterator<'a> {
     type Item = &'a Resource;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let Some(res) = self.queue.pop_front() else {
-            return None;
-        };
+        let res = self.queue.pop_front()?;
 
         self.queue
             .append(&mut VecDeque::from_iter(res.dependents.iter()));
@@ -286,7 +286,7 @@ impl Resource {
         tokio::task::LocalSet::new()
             .run_until(async {
                 let reply =
-                    do_ocf_request(&self, loc, ocf_resource_agent::Operation::Monitor).await?;
+                    do_ocf_request(self, loc, ocf_resource_agent::Operation::Monitor).await?;
                 let status = reply.get()?.get_result()?;
                 match status.which() {
                     Ok(ocf_resource_agent::result::Ok(st)) => {
@@ -312,8 +312,7 @@ impl Resource {
     pub async fn start(&self, loc: Location) -> Result<ocf::Status, Box<dyn Error>> {
         tokio::task::LocalSet::new()
             .run_until(async {
-                let reply =
-                    do_ocf_request(&self, loc, ocf_resource_agent::Operation::Start).await?;
+                let reply = do_ocf_request(self, loc, ocf_resource_agent::Operation::Start).await?;
                 let status = reply.get()?.get_result()?;
                 match status.which() {
                     Ok(ocf_resource_agent::result::Ok(st)) => {
@@ -339,7 +338,7 @@ impl Resource {
         tokio::task::LocalSet::new()
             .run_until(async {
                 let reply =
-                    do_ocf_request(&self, Location::Home, ocf_resource_agent::Operation::Stop)
+                    do_ocf_request(self, Location::Home, ocf_resource_agent::Operation::Stop)
                         .await?;
                 let status = reply.get()?.get_result()?;
                 match status.which() {
@@ -391,13 +390,11 @@ impl Resource {
         let old_status_copy = *old_status;
         *old_status = status;
         std::mem::drop(old_status);
-        if self.context.args.verbose {
-            if old_status_copy != status {
-                let _ = self.context.out_stream.writeln(
-                    self.status_update_string(old_status_copy, status)
-                        .as_bytes(),
-                );
-            }
+        if self.context.args.verbose && old_status_copy != status {
+            let _ = self.context.out_stream.writeln(
+                self.status_update_string(old_status_copy, status)
+                    .as_bytes(),
+            );
         }
     }
 
@@ -427,7 +424,7 @@ impl Resource {
     /// Return a string representation of this resource's parameters in a predictable way.
     pub fn params_string(&self) -> String {
         let mut params: Vec<(&String, &String)> = self.parameters.iter().collect();
-        params.sort_by(|a, b| a.cmp(b));
+        params.sort();
         let mut output: String = String::from("{");
         params.iter().enumerate().for_each(|(i, (k, v))| {
             if i == params.len() - 1 {

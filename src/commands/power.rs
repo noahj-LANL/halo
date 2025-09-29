@@ -35,7 +35,7 @@ pub struct PowerArgs {
 }
 
 pub fn power(main_args: &Cli, args: &PowerArgs) -> commands::Result {
-    if args.hostnames.len() == 0 {
+    if args.hostnames.is_empty() {
         return status_all_hosts_in_config(main_args, args);
     }
 

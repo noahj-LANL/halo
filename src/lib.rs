@@ -66,7 +66,7 @@ impl Buffer {
     /// If the end of the given buffer is reached while reading, only the amount of data that can
     /// fill the given buffer will be read, possibly leaving data in the source buffer.
     pub fn read(&self, buf: &mut [u8]) -> std::io::Result<usize> {
-        if buf.len() == 0 {
+        if buf.is_empty() {
             panic!("given buffer too small to read full line into");
         }
         let mut new_data_n = self
@@ -84,7 +84,7 @@ impl Buffer {
         let leftover_read = {
             let diff: isize = *new_data_n as isize - buf.len() as isize;
             if diff < 0 {
-                0 as usize
+                0
             } else {
                 diff as usize
             }

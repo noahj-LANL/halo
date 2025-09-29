@@ -95,11 +95,11 @@ pub fn main(cli: &Cli, command: &Commands) -> Result {
     };
 
     if let Commands::Power(args) = command {
-        return power::power(&cli, args);
+        return power::power(cli, args);
     }
 
     if let Commands::Validate(args) = command {
-        return validate::validate(&args);
+        return validate::validate(args);
     }
 
     let rt = tokio::runtime::Runtime::new()?;

@@ -131,7 +131,7 @@ fn __get_ocf_request<S: tokio::io::AsyncRead + tokio::io::AsyncWrite + 'static>(
     Ok(request)
 }
 
-pub async fn do_ocf_request<'a>(
+pub async fn do_ocf_request(
     res: &Resource,
     loc: Location,
     op: ocf_resource_agent::Operation,

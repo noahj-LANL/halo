@@ -143,11 +143,8 @@ impl Host {
     }
 
     pub fn set_status(&self, status: HostStatus) {
-        match status {
-            HostStatus::Down => {
-                panic!("Down status for host is not possible yet. (Requires fencing.)");
-            }
-            _ => {}
+        if status == HostStatus::Down {
+            panic!("Down status for host is not possible yet. (Requires fencing.)");
         };
         *self.status.lock().unwrap() = status;
     }
