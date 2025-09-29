@@ -8,3 +8,4 @@ proto/*.pb.go
 patches
 patches.tar
 tests/test_output
+test_agent*
