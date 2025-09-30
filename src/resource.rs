@@ -204,6 +204,9 @@ pub struct Resource {
     /// dependents would be the Lustre resources that it hosts.
     pub dependents: Vec<Resource>,
 
+    /// Unique identifier for the resource.
+    pub id: String,
+
     // TODO: better privacy here
     pub status: Mutex<ResourceStatus>,
     pub home_node: Arc<Host>,
@@ -219,6 +222,7 @@ impl Resource {
         home_node: Arc<Host>,
         failover_node: Option<Arc<Host>>,
         context: Arc<MgrContext>,
+        id: String,
     ) -> Self {
         Resource {
             kind: res.kind,
@@ -228,6 +232,7 @@ impl Resource {
             home_node,
             failover_node,
             context,
+            id,
         }
     }
 
