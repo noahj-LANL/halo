@@ -167,6 +167,7 @@ impl Cluster {
         struct TransitionalResource {
             me: crate::config::Resource,
             children: RefCell<Vec<Rc<TransitionalResource>>>,
+            id: String,
         }
 
         impl TransitionalResource {
@@ -191,7 +192,7 @@ impl Cluster {
                         )
                     })
                     .collect();
-                Resource::from_config(self.me, dependents, host, failover_host, context)
+                Resource::from_config(self.me, dependents, host, failover_host, context, self.id)
             }
         }
 
@@ -202,6 +203,7 @@ impl Cluster {
                 let trans_res = TransitionalResource {
                     me: res.clone(),
                     children: RefCell::new(Vec::new()),
+                    id: id.clone(),
                 };
                 (id.clone(), trans_res)
             })
@@ -260,6 +262,7 @@ impl Cluster {
         println!("=== Resource Groups ===");
         for rg in &self.resource_groups {
             for res in rg.resources() {
+                print!("{}: ", res.id);
                 println!("{}", res.params_string());
                 println!("\thome node: {}", res.home_node.id());
                 println!(
